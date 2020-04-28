@@ -50,9 +50,11 @@ for year in years:
         for general_link in general_links[3:]:
             # get the link text that will be downloaded afterwards
             link_text = general_link.a['href'] 
+            
+            # print(general_link.text) # let it run until it FINISHS and see the usage of cleared_text!
 
-            # leave only the essential information(keeping only alphanumeric) for future matching using regural expressions module + strip to remove whitespace
-            cleared_text = re.sub('[.,0-9]', '', general_link.text).strip()
+            # remove numbers and dots for future matching using regural expressions module + strip to remove whitespace
+            cleared_text = re.sub('[.\d]', '', general_link.text).strip()
             
             # the reason for this identification is the difference in the site ordering for year 2015 in comparison to the others
             for id_text in file_identification:
@@ -66,4 +68,3 @@ for year in years:
                     file_writer = open(dataset_path+id_text+'/'+year_quarter+'.xls', 'wb+')
                     # write the content to the file
                     file_writer.write(request_info.content)
-
