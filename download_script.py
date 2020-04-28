@@ -53,7 +53,7 @@ for year in years:
             
             # print(general_link.text) # let it run until it FINISHS and see the usage of cleared_text!
 
-            # remove numbers and dots for future matching using regural expressions module + strip to remove whitespace
+            # substitute numbers and dots for future matching using regural expressions module + strip to remove whitespace
             cleared_text = re.sub('[.\d]', '', general_link.text).strip()
             
             # the reason for this identification is the difference in the site ordering for year 2015 in comparison to the others
