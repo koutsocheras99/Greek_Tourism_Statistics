@@ -1,11 +1,19 @@
 import xlrd
 import re
+import matplotlib.pyplot as plt
+import numpy as np
 
 def tourists_quarter():
 
     years = ['2011','2012','2013','2014','2015']
     quarters_num = [2,5,8,11]
-    
+
+    # for plotting
+    q1_list = []
+    q2_list = []
+    q3_list = []
+    q4_list = []
+        
     for year in years:
         # no need to go to every file. just the Q4 at the last sheet contains the yearly required data
         dataset_path = 'dataset/Αφίξεις μη κατοίκων από το εξωτερικό ανά χώρα προέλευσης/'+str(year)+'-Q4.xls'
@@ -39,10 +47,29 @@ def tourists_quarter():
         q3 = float(top_quarter[2]) - q2 - q1
         q4 = float(top_quarter[3]) - q3 - q2 - q1
 
+        q1_list.append(q1)
+        q2_list.append(q2)
+        q3_list.append(q3)
+        q4_list.append(q4)
     
         print(year)
         print(f'Q1:{q1} Q2:{q2} Q3:{q3} Q4:{q4}')
         print('')
+
+    X = np.arange(2011,2016)
+    
+    plt.bar(X - 0.3, q1_list, width = 0.2, label='Q1')
+    plt.bar(X - 0.1, q2_list, width = 0.2, label='Q2')
+    plt.bar(X + 0.1, q3_list, width = 0.2, label='Q3')
+    plt.bar(X + 0.3, q4_list, width = 0.2, label='Q4')
+    
+    plt.title('Tourists per Quarter')
+    plt.xlabel('Years')
+    plt.ylabel('Number of Tourists')
+
+    plt.legend(loc='best')
+    
+    plt.show()
  
             
 if __name__ == '__main__':
