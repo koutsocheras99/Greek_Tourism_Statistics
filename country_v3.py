@@ -28,14 +28,14 @@ def country_most_tourists(number_top):
 
         # iterating in the countries, number of tourist columns
         for country, num_tourist in zip(countries, num_tourists):
-            # removing non irrelevant records (ΕΤΟΣ)
-            cleared = re.sub('\d', '', str(num_tourist))
+            # removing non irrelevant records (letters) (example -> ΕΤΟΣ) 
+            cleared = re.sub('[^0-9.]', '', str(num_tourist))
             
             if cleared:
                 # append to the dictionary with the certain format
                 country_tourist.update({country: num_tourist})
 
-        #print(country_tourist)
+        # print(country_tourist)
 
         # sorting the initial dictionary based on the number of tourists (x[1])
         sorted_numTour_dict = sorted(country_tourist.items(), key=lambda  x: x[1], reverse=True)
@@ -52,8 +52,6 @@ def country_most_tourists(number_top):
                 country_tourist_top.append(key)
 
         print(country_tourist_top[1:number_top+1])
-
-
 
 if __name__ == '__main__':
     country_most_tourists(5)
