@@ -3,7 +3,7 @@ import re
 import matplotlib.pyplot as plt
 import numpy as np
 
-def tourists_quarter():
+def tourists_quarter(start_year, end_year):
 
     years = ['2011','2012','2013','2014','2015']
     quarters_num = [2,5,8,11]
@@ -14,7 +14,7 @@ def tourists_quarter():
     q3_list = []
     q4_list = []
         
-    for year in years:
+    for year in years[(start_year-2011):(end_year-2011+1)]:
         # no need to go to every file. just the Q4 at the last sheet contains the yearly required data
         dataset_path = 'dataset/Αφίξεις μη κατοίκων από το εξωτερικό ανά χώρα προέλευσης/'+str(year)+'-Q4.xls'
 
@@ -56,7 +56,7 @@ def tourists_quarter():
         print(f'Q1:{q1} Q2:{q2} Q3:{q3} Q4:{q4}')
         print('')
 
-    X = np.arange(2011,2016)
+    X = np.arange(start=start_year,stop=end_year+1, step=1, dtype=int)
     
     plt.bar(X - 0.3, q1_list, width = 0.2, label='Q1')
     plt.bar(X - 0.1, q2_list, width = 0.2, label='Q2')
@@ -73,4 +73,4 @@ def tourists_quarter():
  
             
 if __name__ == '__main__':
-    tourists_quarter()
+    tourists_quarter(2011,2014)
