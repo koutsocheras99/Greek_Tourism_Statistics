@@ -4,12 +4,12 @@ import matplotlib.pyplot as plt
 
 # this could be done in a more simplier way (not using dictionary but lists(check tourist_per_quarter.py)) but it was implemented together with countries_most.py
 
-def most_tourists():
+def most_tourists(start_year, end_year):
 
     years = ['2011','2012','2013','2014','2015']
     plot_list = []
 
-    for year in years:
+    for year in years[(start_year-2011):(end_year-2011+1)]:
         # no need to go to every file. just the Q4 at the last sheet contains the yearly required data
         dataset_path = 'dataset/Αφίξεις μη κατοίκων από το εξωτερικό ανά χώρα προέλευσης/'+str(year)+'-Q4.xls'
 
@@ -61,7 +61,7 @@ def most_tourists():
     # remove the circular reference      
     plot_list = sum(plot_list, [])
 
-    plt.bar(years, plot_list, color='#0D69A6', width=0.35)
+    plt.bar(years[(start_year-2011):(end_year-2011+1)], plot_list, color='lightskyblue', width=0.35)
     plt.title('Total Tourists per Year')
     plt.xlabel('Years')
     plt.ylabel('Number of Tourists')
@@ -69,4 +69,4 @@ def most_tourists():
     
     
 if __name__ == '__main__':
-    most_tourists()
+    most_tourists(2011,2015)
