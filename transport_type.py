@@ -2,7 +2,7 @@ import xlrd
 import re
 import matplotlib.pyplot as plt
 
-def transport():
+def transport(start_year, end_year):
 
     years = ['2011','2012','2013','2014','2015']
 
@@ -12,7 +12,7 @@ def transport():
     sea_list = []
     road_list = []
 
-    for year in years:
+    for year in years[(start_year-2011):(end_year-2011+1)]:
 
         dataset_path = 'dataset/Αφίξεις μη κατοίκων από το εξωτερικό ανά χώρα προέλευσης και μέσο μεταφοράς/'+str(year)+'-Q4.xls'
 
@@ -65,10 +65,10 @@ def transport():
         sea_list.append(float(sea[0]))
         road_list.append(float(road[0]))
        
-    plt.plot(years, air_list, label='Airplane')
-    plt.plot(years, rail_list, label='Railway')
-    plt.plot(years, sea_list, label='Sea')
-    plt.plot(years, road_list,label='Road')
+    plt.plot(years[(start_year-2011):(end_year-2011+1)], air_list, label='Airplane')
+    plt.plot(years[(start_year-2011):(end_year-2011+1)], rail_list, label='Railway')
+    plt.plot(years[(start_year-2011):(end_year-2011+1)], sea_list, label='Sea')
+    plt.plot(years[(start_year-2011):(end_year-2011+1)], road_list,label='Road')
 
     plt.title('Transport Type and Number of Tourists')
     plt.xlabel('Years')
@@ -80,4 +80,4 @@ def transport():
     
     
 if __name__ == '__main__':
-    transport()
+    transport(start_year=2011, end_year=2015)
