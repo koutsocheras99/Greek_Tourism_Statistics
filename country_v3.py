@@ -85,7 +85,8 @@ def country_most_tourists(numberOfCountries, start_year, end_year):
     sizes.append(other_countries_size)
     labels.append('Υπόλοιπες Χώρες')
     
-    print(sorted_numTour_dict[1:numberOfCountries+1])
+    # prints works well sometimes (varies at change of start/end) but nevertheless the stats are accurate
+    # print(sorted_numTour_dict[1:numberOfCountries+1])
     
     plt.pie(sizes, labels=labels, autopct='%1.1f%%', shadow=True, startangle=140)
 

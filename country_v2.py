@@ -2,14 +2,13 @@ import xlrd
 import re
 import matplotlib.pyplot as plt
 
-# this could be done in a more simplier way (not using dictionary but lists(check tourist_per_quarter.py)) but it was implemented together with countries_most.py
-
-def most_tourists(start_year, end_year):
+def country_most_tourists(number_top):
 
     years = ['2011','2012','2013','2014','2015']
     plot_list = []
-
-    for year in years[(start_year-2011):(end_year-2011+1)]:
+    
+    for year in years:
+        
         # no need to go to every file. just the Q4 at the last sheet contains the yearly required data
         dataset_path = 'dataset/Αφίξεις μη κατοίκων από το εξωτερικό ανά χώρα προέλευσης/'+str(year)+'-Q4.xls'
 
@@ -31,19 +30,18 @@ def most_tourists(start_year, end_year):
 
         # iterating in the countries, number of tourist columns
         for country, num_tourist in zip(countries, num_tourists):
-            # removing non irrelevant records (ΕΤΟΣ)
+            # removing non irrelevant records (letters) (example -> ΕΤΟΣ) 
             cleared = re.sub('[^0-9.]', '', str(num_tourist))
             
             if cleared:
                 # append to the dictionary with the certain format
                 country_tourist.update({country: num_tourist})
-                # print(cleared)
 
-        #print(country_tourist)
+        # print(country_tourist)
 
         # sorting the initial dictionary based on the number of tourists (x[1])
         sorted_numTour_dict = sorted(country_tourist.items(), key=lambda  x: x[1], reverse=True)
-        
+
         # print(sorted_numTour_dict)
 
         for key in sorted_numTour_dict:
@@ -53,26 +51,25 @@ def most_tourists(start_year, end_year):
             # for excluding empty key values and keys such as Λοιπά Κράτη Ευρώπης, Λοιπά κράτη Ασίας, etc (issue at Λίβανος - Συρία! that has 2 spaces) 
             if len(key[0])>0 and count_space<2:
                 # append to the top list 
-                country_tourist_top.append(key[1])
+                country_tourist_top.append(key)
 
-        # print every year total tourists number
-        # print(country_tourist_top[0])
-
-        plot_list.append(country_tourist_top[:1])
+        print(country_tourist_top[1:number_top+1])
+        plot_list.append(country_tourist_top[1:number_top+1])
+        
 
     # remove the circular reference      
     plot_list = sum(plot_list, [])
+ 
+    # accesing the first element of the tuple inside the list which is the country name (it will only used for database reasons)
+    countries = [x[0] for x in plot_list]
 
-    plt.bar(years[(start_year-2011):(end_year-2011+1)], plot_list, color='lightskyblue', width=0.35)
-    plt.title('Total Tourists per Year')
-    plt.xlabel('Years')
-    plt.ylabel('Number of Tourists')
-    plt.plot(style='plain')
+    # accesing the second element of the tuple inside the list which is the number of tourists of each country 
+    tourist_numbers = [x[1] for x in plot_list]
+
+    plt.bar(years, tourist_numbers)
     plt.show()
+    print(countries)
+    return countries, tourist_numbers
 
-    print(plot_list)
-
-    return plot_list
-    
 if __name__ == '__main__':
-    most_tourists(2011,2015)
+    country_most_tourists(1)

@@ -50,9 +50,10 @@ for year in years:
         for general_link in general_links[3:]:
             # get the link text that will be downloaded afterwards
             link_text = general_link.a['href'] 
+            print(link_text)
             
-            # print(general_link.text) # let it run until it FINISHS and see the usage of cleared_text!
-
+            print(general_link.text) # let it run until it FINISHS and see the usage of cleared_text!
+            
             # substitute numbers and dots for future matching using regural expressions module + strip to remove whitespace
             cleared_text = re.sub('[.\d]', '', general_link.text).strip()
             

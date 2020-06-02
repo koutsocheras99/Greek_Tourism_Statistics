@@ -78,6 +78,7 @@ def transport(start_year, end_year):
     
     plt.show()
     
+    return air_list, rail_list, sea_list, road_list
     
 if __name__ == '__main__':
     transport(start_year=2011, end_year=2015)

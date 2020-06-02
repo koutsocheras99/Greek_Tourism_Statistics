@@ -68,9 +68,10 @@ def tourists_quarter(start_year, end_year):
     plt.ylabel('Number of Tourists')
 
     plt.legend(loc='best')
-    
+
     plt.show()
- 
+    
+    return q1_list, q2_list, q3_list, q4_list
             
 if __name__ == '__main__':
-    tourists_quarter(2011,2014)
+    tourists_quarter(2011,2015)
